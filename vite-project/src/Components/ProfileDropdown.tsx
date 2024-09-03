@@ -29,7 +29,7 @@ const ProfileDropdown = ()=>{
           </div>
         </Dropdown.Item>
         <Dropdown.Item>
-          <div className='flex flex-row py-4'>
+          <div className='flex flex-row py-2'>
             <div className=' flex '>
                 <LogOut onClick={()=>logout}/>
                     <Logout />

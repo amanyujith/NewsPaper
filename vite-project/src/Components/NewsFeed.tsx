@@ -21,11 +21,9 @@ interface ArtcleProps {
   article: NewsFeedProps;
 }
 const NewsFeed = ({ article }: ArtcleProps) => {
-  // console.log(article);
 
   const { user, isAuthenticated } = useAuth0();
   const [save, setSave] = useState("SAVE");
-  // const [topArticles , setTopArticles] = useState([]);
   const dispatch = useDispatch();
   const userId = user?.email;
   const savedArticles = useSelector((state: RootState) => {
@@ -48,25 +46,9 @@ const NewsFeed = ({ article }: ArtcleProps) => {
   });
   const [likeSelected, setLikeSelected] = useState(false);
   const [dislikeSelected, setDislikeSelected] = useState(false);
-  // console.log("svddd",savedArticles);
-
   useEffect(() => {
-    // const getArticles = async ()=>{
-    //   try{
-    //     const response = await axios.get('https://newsapi.org/v2/top-headlines?country=us&apiKey=4adee072bbd84929a2f06d0ea3922968');
-    //       setTopArticles(response.data.articles);
-    //   }
-    //   catch(err){
-    //     console.log("Something Went Wrong",err);
-
-    //   }
-    // }
-    // getArticles();
     if (savedArticles) {
       ArticleStatusChecker();
-      // savedChecker();
-      // LikedChecker();
-      // DisLikedChecker();
     }
   }, [savedArticles]);
   const ArticleStatusChecker = () => {
@@ -75,33 +57,10 @@ const NewsFeed = ({ article }: ArtcleProps) => {
     const isDisliked = DislikedArticles.some(
       (item) => item.url === article.url
     );
-
     if (isSaved) setSave("SAVED");
     if (isLiked) setLikeSelected(true);
     if (isDisliked) setDislikeSelected(true);
   };
-  //   const savedChecker = () =>{
-  //     savedArticles.map((items)=>{
-  //         if(article.url === items.url){
-  //             setSave('SAVED')
-  //         }
-  //     })
-  //   }
-  // const LikedChecker = ()=>{
-  //     LikedArticles.map((item)=>{
-  //         if(article.url === item.url){
-  //             setLikeSelected(true)
-  //         }
-  //     })
-  // }
-  // const DisLikedChecker = ()=>{
-  //     DislikedArticles.map((items)=>{
-  //         if(article.url===items.url){
-  //             setDislikeSelected(true);
-  //         }
-  //     })
-  // }
-
   const handleSave = () => {
     console.log(typeof article, "arrrr");
 
@@ -112,7 +71,6 @@ const NewsFeed = ({ article }: ArtcleProps) => {
       setSave("SAVED");
     }
   };
-
   const handleLikeClick = () => {
     if (isAuthenticated) {
       dispatch(likeArticle({ user: user?.email, article: article }));
@@ -179,39 +137,6 @@ const NewsFeed = ({ article }: ArtcleProps) => {
       {/* </div> */}
     </div>
 
-    //     <div className="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-4 p-6">
-    //   <div className="sm:flex ">
-    //     <img src={article.urlToImage} alt="News" className="sm:w-1/3 h-48 object-contain mb-4" />
-    //     <div className="ml-6 flex flex-col justify-center">
-    //       <h2 className="text-xl font-semibold text-gray-800">{article.title}</h2>
-    //       <p className="text-gray-600 mt-2">{article.description}</p>
-    //     </div>
-    //   </div>
-    //   <p className="text-gray-600 mt-4">{article.content}</p>
-    //   <div className="flex justify-between items-center mt-4">
-    //     <p className="text-sm text-gray-500">{article.author}</p>
-    //     <a href={article.url} className='underline hover:text-blue-500'>Read More</a>
-    //     <div className="flex space-x-4">
-    //       <button onClick={handleSave}>
-    //         {save}
-    //       </button>
-    //       <button
-    //         onClick={handleLikeClick}
-    //         className={`text-2xl ${likeSelected ? 'text-blue-500' : 'text-gray-400'}`}
-    //       >
-    //         <FaThumbsUp />
-    //       </button>
-    //       <button
-    //         onClick={handleDislikeClick}
-    //         className={`text-2xl ${dislikeSelected ? 'text-red-500' : 'text-gray-400'}`}
-    //       >
-    //         <FaThumbsDown />
-    //       </button>
-    //     </div>
-    //   </div>
-
-    //   <ScrollToTop />
-    // </div>
   );
 };
 

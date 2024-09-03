@@ -42,15 +42,6 @@ const SavedArticlesSlice  = createSlice({
                         saved:[article]
                     })
             }
-        //    if(!state[user]){
-        //     state[user] = {saved:[],total:0};
-        //    }
-        //    const articleExists = state[user].saved.some(savedArticle => savedArticle.url === article.url);
-
-        //    if (!articleExists) {
-        //      state[user].saved.push(article);
-        //      state[user].total = state[user].saved.length;
-        //    }
         },
         removeArticle:(state,action)=>{
             const {user,url} = action.payload;

@@ -4,16 +4,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { addArticle, removeArticle } from "../store/newsSlice";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import paper from '../assets/paper.jpeg'
+import paper from "../assets/paper.jpeg";
 import {
   RemoveLike,
   RemoveDislike,
   likeArticle,
   disLikeArticle,
 } from "../store/likesSlice";
-import {  FaThumbsDown, FaThumbsUp } from "react-icons/fa";
-// import { Dropdown, DropdownItem } from 'react-bootstrap';
-// import LogoutButton from "../Auth0/Logout";
+import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import ProfileDropdown from "./ProfileDropdown";
 import { MenuIcon } from "lucide-react";
 import Button from "../Utilities/Button";
@@ -31,9 +29,9 @@ type NewsFeedProps = {
 const User = () => {
   const { user, isAuthenticated } = useAuth0();
   const userId = user?.email;
-  const [title,SetTitle] = useState('Saved')
+  const [title, SetTitle] = useState("Saved");
   const dispatch = useDispatch();
-  const [isOPen,setIsOpen] = useState(false)
+  const [isOPen, setIsOpen] = useState(false);
   const savedArticles = useSelector((state: RootState) => {
     const userArticles = state.savedArticles.articles.find(
       (entry) => entry.user === userId
@@ -100,7 +98,7 @@ const User = () => {
   const renderArticle = () => {
     switch (view) {
       case "saved":
-        return [...savedArticles].reverse() ;
+        return [...savedArticles].reverse();
       case "liked":
         return [...LikedArticles].reverse();
       case "disliked":
@@ -109,38 +107,60 @@ const User = () => {
         return [];
     }
   };
-  
-
 
   return (
     <div className="flex flex-col justify-center items-center w-full p-3 bg-neutral-200">
       <div className="bg-neutral-300 w-full flex flex-col justify-center items-center flex-wrap rounded-xl">
-        <div className="sm:hidden w-full flex justify-end mr-10" onClick={()=>setIsOpen(!isOPen)}>
-          <MenuIcon/>
+        <div
+          className="sm:hidden w-full flex justify-end mr-10"
+          onClick={() => setIsOpen(!isOPen)}
+        >
+          <MenuIcon />
         </div>
-        <div className={`sm:flex  justify-between items-center w-full flex-wrap ${isOPen ? "block":"hidden"} `}>
+        <div
+          className={`sm:flex  justify-between items-center w-full flex-wrap ${
+            isOPen ? "block" : "hidden"
+          } `}
+        >
           <div>
-            <Button value="BACK" onClick={()=>window.location.href='/'} cl="bg-gray-700 text-white hover:bg-gray-600 ml-3"/>
+            <Button
+              value="BACK"
+              onClick={() => (window.location.href = "/")}
+              cl="bg-gray-700 text-white hover:bg-gray-600 ml-3"
+            />
           </div>
           <div className=" flex  flex-col sm:flex-row  flex-wrap gap-4  items-center  sm:justify-evenly p-5 rounded-xl">
-            <Button value="Saved" onClick={() => setView("saved")} cl={`text-white font-bold px-4 py-2 w-20 rounded-lg ${
+            <Button
+              value="Saved"
+              onClick={() => setView("saved")}
+              cl={`text-white font-bold px-4 py-2 w-20 rounded-lg ${
                 view === "saved" ? "bg-gray-800" : "bg-gray-600"
               } 
-          transition-colors duration-300 hover:bg-gray-700`}/>
-          <Button value="Liked" onClick={() => setView("liked")} cl={`text-white font-bold px-4 py-2 w-20 rounded-lg ${
+          transition-colors duration-300 hover:bg-gray-700`}
+            />
+            <Button
+              value="Liked"
+              onClick={() => setView("liked")}
+              cl={`text-white font-bold px-4 py-2 w-20 rounded-lg ${
                 view === "liked" ? "bg-gray-800" : "bg-gray-600"
               } 
-          transition-colors duration-300 hover:bg-gray-700`}/>
-            <Button value="Disliked"  onClick={() => setView("disliked")} cl={`text-white font-bold flex justify-center items-center py-2  w-20 rounded-lg ${
+          transition-colors duration-300 hover:bg-gray-700`}
+            />
+            <Button
+              value="Disliked"
+              onClick={() => setView("disliked")}
+              cl={`text-white font-bold flex justify-center items-center py-2  w-20 rounded-lg ${
                 view === "disliked" ? "bg-gray-800" : "bg-gray-600"
               } 
-          transition-colors duration-300 hover:bg-gray-700`}/>
-          </div >
+          transition-colors duration-300 hover:bg-gray-700`}
+            />
+          </div>
           <ProfileDropdown />
         </div>
-       
       </div>
-      <h1 className="mt-3 text-2xl bg-neutral-100 p-2 rounded-lg text-black font-bold">{title} Articles</h1>
+      <h1 className="mt-3 text-2xl bg-neutral-100 p-2 rounded-lg text-black font-bold">
+        {title} Articles
+      </h1>
       {renderArticle().length === 0 ? (
         <h1>No Articles </h1>
       ) : (
@@ -161,10 +181,9 @@ const User = () => {
                 className="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-4 p-6"
                 key={article.url}
               >
-               
                 <div className="sm:flex ">
                   <img
-                    src={article.urlToImage||paper}
+                    src={article.urlToImage || paper}
                     alt="News"
                     className="sm:w-1/3 h-48 object-contain mb-4"
                   />
@@ -176,43 +195,71 @@ const User = () => {
                   </div>
                 </div>
                 <p className="text-gray-600 mt-4">{article.content}</p>
-                <div className="flex justify-between items-center mt-4">
-                  <p className="text-sm text-gray-500">{article.author}</p>
-                  <a href={article.url} className="underline hover:text-blue-500">Read More</a>
-                  <div className="flex space-x-4">
+                <div className="flex justify-between gap-8 items-center mt-4 ">
+                  <div className="flex flex-1  gap-2  max-w-[50%]">
+                    <p className="text-sm text-gray-500 flex-1">
+                      {article.author}
+                    </p>
+                    <a
+                      href={article.url}
+                      className="underline hover:text-blue-500"
+                    >
+                      Read More
+                    </a>
+                  </div>
+                  <div className="flex">
+                    <div className="flex justify-end">
                     {view === "saved" ? (
-                      // <button onClick={() => handleRemove(article.url)}>
-                      //   Remove
-                      // </button>
-                      <Button value='Remove' onClick={()=>handleRemove(article.url)} cl="hover:bg-gray-100 flex justify-center items-center"/>
+                      <Button
+                        value="Remove"
+                        onClick={() => handleRemove(article.url)}
+                        cl="hover:bg-gray-100 flex"
+                      />
                     ) : (
-                      <Button value={isSaved ? "SAVED" : "SAVE"} onClick={()=>handleSave(article)}/>
-                      // <button onClick={() => handleSave(article)}>
-                      //   {isSaved ? "SAVED" : "SAVE"}
-                      // </button>
+                      <Button
+                        value={isSaved ? "SAVED" : "SAVE"}
+                        onClick={() => handleSave(article)}
+                      />
                     )}
-                    <button
+                    <div className="flex justify-end max-w-[50%] ">
+                      <Button
+                        value={<FaThumbsUp />}
+                        onClick={() => handleLikeClick(article)}
+                        cl={`text-2xl  max-w-fit  ${
+                          isLiked ? "text-blue-500" : "text-gray-400"
+                        }`}
+                      />
+                      <Button
+                        value={<FaThumbsDown />}
+                        onClick={() => handleDislikeClick(article)}
+                        cl={`text-2xl max-w-fit  ${
+                          isDisliked ? "text-red-500" : "text-gray-400"
+                        }`}
+                      />
+                      </div>
+                    </div>
+                    {/* <button
                       onClick={() => handleLikeClick(article)}
                       className={`text-2xl ${
                         isLiked ? "text-blue-500" : "text-gray-400"
                       }`}
                     >
                       <FaThumbsUp />
-                    </button>
-                    <button
+                    </button> 
+                     <button
                       onClick={() => handleDislikeClick(article)}
                       className={`text-2xl ${
                         isDisliked ? "text-red-500" : "text-gray-400"
                       }`}
                     >
                       <FaThumbsDown />
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
             );
           })}
-          <ScrollToTop/>
+          <ScrollToTop />
         </div>
       )}
     </div>
