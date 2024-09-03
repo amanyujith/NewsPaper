@@ -7,8 +7,8 @@ import Button from "../Utilities/Button";
 import Logout from "../Auth0/Logout";
 
 const ProfileDropdown = ()=>{
-    const { user } = useAuth0();
-    const { logout } = useAuth0();
+    const { user, logout } = useAuth0();
+    
     const [dropdownOpen, setDropDownOpen] = useState(false);
     const toggleDropdown = () => {
       setDropDownOpen(!dropdownOpen);

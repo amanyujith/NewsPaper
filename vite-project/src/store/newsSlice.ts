@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 interface SavedItem {
     title: string;
@@ -57,9 +57,19 @@ const SavedArticlesSlice  = createSlice({
     },
 }
 });
-export const selectedUsersWithSavedArticles = (state:{savedArticles:SavedArticles}) =>{
-    const users = state.savedArticles.articles.map(article => article.user);
+// export const selectedUsersWithSavedArticles = (state:{savedArticles:SavedArticles}) =>{
+//     const users = state.savedArticles.articles.map(article => article.user);
+//     return Array.from(new Set(users));
+// }
+const selectSavedArticles = (state: { savedArticles: SavedArticles }) => state.savedArticles;
+
+// Memoized selector to get unique users with saved articles
+export const selectedUsersWithSavedArticles = createSelector(
+  [selectSavedArticles],
+  (savedArticles) => {
+    const users = savedArticles.articles.map(article => article.user);
     return Array.from(new Set(users));
-}
+  }
+);
 export const {addArticle,removeArticle} = SavedArticlesSlice.actions;
 export default SavedArticlesSlice.reducer;

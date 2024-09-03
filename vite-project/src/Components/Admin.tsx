@@ -8,16 +8,12 @@ import Button from "../Utilities/Button";
 import { selectedUsersWithFeedback } from "../store/feedbackSlice";
 
 const Admin = ()=>{
-    // const {user} = useAuth0();
     const navigate = useNavigate();
     const savedUsers = useSelector((state:RootState)=>selectedUsersWithSavedArticles(state));
     const likedUsers  = useSelector((state:RootState)=>selectedUsersWithLikedArticles(state));
     const dislikedUsers = useSelector((state:RootState)=>selectedUsersWithDisLikedArticles(state));
     const usersFeedback = useSelector((state:RootState)=>selectedUsersWithFeedback(state));
-
     const [view , setView] = useState('saved');
-    //like
-    //dislike
    console.log(savedUsers);
    
     const renderArticle = ()=>{
@@ -51,6 +47,7 @@ const Admin = ()=>{
     // const userId = user?.email
       return <div className="flex flex-col justify-center items-center gap-4 ">
         <h1>ADMIN</h1>
+        
         <div className=" flex gap-4 mb-4 bg-gray-700 w-1/3 justify-evenly p-7 rounded-xl">
          <Button value="Saved" onClick={()=>setView('saved')} cl={`text-white font-bold px-4 py-2 rounded-lg ${view==="saved" ? "bg-gray-800" : "bg-gray-600"} transition-colors
          duration-300 hover:bg-gray-500`}/>

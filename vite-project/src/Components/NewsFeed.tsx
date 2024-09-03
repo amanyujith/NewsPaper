@@ -41,7 +41,6 @@ interface ArtcleProps {
   article: NewsFeedProps;
 }
 const NewsFeed = ({ article }: ArtcleProps) => {
-
   const { user, isAuthenticated } = useAuth0();
   const [save, setSave] = useState("SAVE");
   const dispatch = useDispatch();
@@ -122,7 +121,6 @@ const NewsFeed = ({ article }: ArtcleProps) => {
 
   return (
     <div className=" flex  ">
-      {/* <div className='   '> */}
       <div className="border-2 rounded-lg bg-slate-100 p-3 auto">
         {/* <div className='bg-slate-200 p-3 rounded-lg'> */}
         <h1 className="font-mono font-bold ">{article.title}</h1>
@@ -162,7 +160,7 @@ const NewsFeed = ({ article }: ArtcleProps) => {
           </div>
         </div>
       </div>
-      
+     
       {/* </div> */}
     </div>
 

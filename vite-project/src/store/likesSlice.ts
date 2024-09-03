@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 interface SavedItem {
     title: string;
@@ -87,15 +87,39 @@ const LikedArticleSlice = createSlice({
         }
     }
 })
-export const selectedUsersWithLikedArticles = (state:{likedArticles:likedArticles})=>{
-    const users = state.likedArticles.articles.filter(entry => entry.liked.length > 0)
-    .map(article=>article.user);
+// export const selectedUsersWithLikedArticles = (state:{likedArticles:likedArticles})=>{
+//     const users = state.likedArticles.articles.filter(entry => entry.liked.length > 0)
+//     .map(article=>article.user);
+//     return Array.from(new Set(users));
+// }
+// export const selectedUsersWithDisLikedArticles = (state:{likedArticles:likedArticles})=>{
+//     const users = state.likedArticles.articles.filter(entry => entry.disliked.length > 0)
+//     .map(article=>article.user);
+//     return Array.from(new Set(users));
+// }
+const selectLikedArticles = (state: { likedArticles: likedArticles }) => state.likedArticles;
+
+// Memoized selector to get unique users with liked articles
+export const selectedUsersWithLikedArticles = createSelector(
+  [selectLikedArticles],
+  (likedArticles) => {
+    const users = likedArticles.articles.filter(entry => entry.liked.length > 0)
+      .map(article => article.user);
     return Array.from(new Set(users));
-}
-export const selectedUsersWithDisLikedArticles = (state:{likedArticles:likedArticles})=>{
-    const users = state.likedArticles.articles.filter(entry => entry.disliked.length > 0)
-    .map(article=>article.user);
+  }
+);
+
+// Base selector to get disliked articles from state
+const selectDislikedArticles = (state: { likedArticles: likedArticles }) => state.likedArticles;
+
+// Memoized selector to get unique users with disliked articles
+export const selectedUsersWithDisLikedArticles = createSelector(
+  [selectDislikedArticles],
+  (likedArticles) => {
+    const users = likedArticles.articles.filter(entry => entry.disliked.length > 0)
+      .map(article => article.user);
     return Array.from(new Set(users));
-}
+  }
+);
 export const {likeArticle,disLikeArticle,RemoveLike,RemoveDislike} = LikedArticleSlice.actions;
 export default LikedArticleSlice.reducer;
