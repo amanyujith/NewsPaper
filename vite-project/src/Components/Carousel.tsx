@@ -53,8 +53,8 @@ const Carousel = ()=>{
         <div className="flex flex-col  bg-slate-100">
         <div className="bg-white">
            
-    <div className="embla bg-neutral-100 p-2 rounded-lg mt-1 border-2 mr-2" >
-        <div className="embla__viewport" ref={emblaRef}>
+    <div className="embla bg-neutral-100 p-2 rounded-lg mt-1 border-2 mr-2 " >
+        <div className="embla__viewport mb-1" ref={emblaRef}>
     <div className="embla__container ">
     {articles &&
             articles.map((article, index) => (
@@ -68,8 +68,8 @@ const Carousel = ()=>{
      
     </div>
     </div>
-    <Button value={<ChevronLeft/>} onClick={scrollPrev}/>
-    <Button value= {<ChevronRight />} onClick={scrollNext}/>
+    <Button value={<ChevronLeft/>} onClick={scrollPrev} cl="hover:bg-gray-200 max-w-fit"/>
+    <Button value= {<ChevronRight />} onClick={scrollNext} cl="hover:bg-gray-200 max-w-fit"/>
     
   </div>
         </div>

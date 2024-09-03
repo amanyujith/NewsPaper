@@ -16,6 +16,35 @@ import ProfileDropdown from "./ProfileDropdown";
 import { MenuIcon } from "lucide-react";
 import Button from "../Utilities/Button";
 import ScrollToTop from "./ScrollToTop";
+import { createSelector } from 'reselect';
+
+const selectSavedArticles = createSelector(
+  (state: RootState) => state.savedArticles.articles,
+  (_, userId: string | undefined) => userId,
+  (articles, userId) => {
+    const userArticles = articles.find((entry:UserArticle) => entry.user === userId);
+    return userArticles ? userArticles.saved : [];
+  }
+);
+
+const selectLikedArticles = createSelector(
+  (state: RootState) => state.likedArticles.articles,
+  (_, userId: string | undefined) => userId,
+  (articles, userId) => {
+    const userArticles = articles.find((entry:UserArticle) => entry.user === userId);
+    return userArticles ? userArticles.liked : [];
+  }
+);
+
+const selectDislikedArticles = createSelector(
+  (state: RootState) => state.likedArticles.articles,
+  (_, userId: string | undefined) => userId,
+  (articles, userId) => {
+    const userArticles = articles.find((entry:UserArticle) => entry.user === userId);
+    return userArticles ? userArticles.disliked : [];
+  }
+);
+
 type NewsFeedProps = {
   title: string;
   url: string;
@@ -25,6 +54,13 @@ type NewsFeedProps = {
   publishedAt?: Date;
   urlToImage: string;
 };
+interface UserArticle {
+  url: string;
+  user: string;
+  liked?: NewsFeedProps[]; // or any other type that matches your data structure
+  disliked?: NewsFeedProps[]; // same here
+  saved?: NewsFeedProps[]; // if used
+}
 
 const User = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -32,26 +68,38 @@ const User = () => {
   const [title, SetTitle] = useState("Saved");
   const dispatch = useDispatch();
   const [isOPen, setIsOpen] = useState(false);
-  const savedArticles = useSelector((state: RootState) => {
-    const userArticles = state.savedArticles.articles.find(
-      (entry) => entry.user === userId
-    );
-    return userArticles ? userArticles.saved : [];
-  });
+  const savedArticles = useSelector((state: RootState) =>
+    selectSavedArticles(state, userId)
+  );
+  
+  const LikedArticles = useSelector((state: RootState) =>
+    selectLikedArticles(state, userId)
+  );
+  
+  const DislikedArticles = useSelector((state: RootState) =>
+    selectDislikedArticles(state, userId)
+  );
+  
+  // const savedArticles = useSelector((state: RootState) => {
+  //   const userArticles = state.savedArticles.articles.find(
+  //     (entry) => entry.user === userId
+  //   );
+  //   return userArticles ? userArticles.saved : [];
+  // });
 
-  const LikedArticles = useSelector((state: RootState) => {
-    const userArticles = state.likedArticles.articles.find(
-      (entry) => entry.user === userId
-    );
-    return userArticles ? userArticles.liked : [];
-  });
+  // const LikedArticles = useSelector((state: RootState) => {
+  //   const userArticles = state.likedArticles.articles.find(
+  //     (entry) => entry.user === userId
+  //   );
+  //   return userArticles ? userArticles.liked : [];
+  // });
 
-  const DislikedArticles = useSelector((state: RootState) => {
-    const userArticles = state.likedArticles.articles.find(
-      (entry) => entry.user === userId
-    );
-    return userArticles ? userArticles.disliked : [];
-  });
+  // const DislikedArticles = useSelector((state: RootState) => {
+  //   const userArticles = state.likedArticles.articles.find(
+  //     (entry) => entry.user === userId
+  //   );
+  //   return userArticles ? userArticles.disliked : [];
+  // });
 
   const [view, setView] = useState("saved");
 
@@ -167,13 +215,13 @@ const User = () => {
         <div className="flex flex-row flex-wrap gap-3 justify-evenly my-5">
           {renderArticle().map((article) => {
             const isSaved = savedArticles.some(
-              (item) => item.url === article.url
+              (item:UserArticle) => item.url === article.url
             );
             const isLiked = LikedArticles.some(
-              (item) => item.url === article.url
+              (item:UserArticle) => item.url === article.url
             );
             const isDisliked = DislikedArticles.some(
-              (item) => item.url === article.url
+              (item:UserArticle) => item.url === article.url
             );
 
             return (

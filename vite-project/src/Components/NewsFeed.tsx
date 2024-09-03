@@ -7,7 +7,27 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { RootState } from "../store/store";
 import Button from "../Utilities/Button";
 import paper from "../assets/paper.jpeg";
+import { createSelector } from "reselect";
 // import axios from 'axios';
+const selectUserArticles = (state: RootState, userId: string) =>
+  state.savedArticles.articles.find((entry) => entry.user === userId);
+
+const selectSavedArticles = createSelector(
+  [selectUserArticles],
+  (userArticles) => (userArticles ? userArticles.saved : [])
+);
+
+const selectLikedArticles = createSelector(
+  [(state: RootState) => state.likedArticles.articles, (_, userId: string) => userId],
+  (articles, userId) =>
+    articles.find((entry) => entry.user === userId)?.liked || []
+);
+
+const selectDislikedArticles = createSelector(
+  [(state: RootState) => state.likedArticles.articles, (_, userId: string) => userId],
+  (articles, userId) =>
+    articles.find((entry) => entry.user === userId)?.disliked || []
+);
 type NewsFeedProps = {
   title: string;
   url: string;
@@ -25,25 +45,34 @@ const NewsFeed = ({ article }: ArtcleProps) => {
   const { user, isAuthenticated } = useAuth0();
   const [save, setSave] = useState("SAVE");
   const dispatch = useDispatch();
-  const userId = user?.email;
-  const savedArticles = useSelector((state: RootState) => {
-    const userArticles = state.savedArticles.articles.find(
-      (entry) => entry.user === userId
-    );
-    return userArticles ? userArticles.saved : [];
-  });
-  const LikedArticles = useSelector((state: RootState) => {
-    const userArticles = state.likedArticles.articles.find(
-      (entry) => entry.user === userId
-    );
-    return userArticles ? userArticles.liked : [];
-  });
-  const DislikedArticles = useSelector((state: RootState) => {
-    const userArticles = state.likedArticles.articles.find(
-      (entry) => entry.user === userId
-    );
-    return userArticles ? userArticles.disliked : [];
-  });
+  const userId = user?.email||'';
+  const savedArticles = useSelector((state: RootState) =>
+    selectSavedArticles(state, userId)
+  );
+  const LikedArticles = useSelector((state: RootState) =>
+    selectLikedArticles(state, userId)
+  );
+  const DislikedArticles = useSelector((state: RootState) =>
+    selectDislikedArticles(state, userId)
+  );
+  // const savedArticles = useSelector((state: RootState) => {
+  //   const userArticles = state.savedArticles.articles.find(
+  //     (entry) => entry.user === userId
+  //   );
+  //   return userArticles ? userArticles.saved : [];
+  // });
+  // const LikedArticles = useSelector((state: RootState) => {
+  //   const userArticles = state.likedArticles.articles.find(
+  //     (entry) => entry.user === userId
+  //   );
+  //   return userArticles ? userArticles.liked : [];
+  // });
+  // const DislikedArticles = useSelector((state: RootState) => {
+  //   const userArticles = state.likedArticles.articles.find(
+  //     (entry) => entry.user === userId
+  //   );
+  //   return userArticles ? userArticles.disliked : [];
+  // });
   const [likeSelected, setLikeSelected] = useState(false);
   const [dislikeSelected, setDislikeSelected] = useState(false);
   useEffect(() => {
