@@ -8,7 +8,6 @@ import { RootState } from "../store/store";
 import Button from "../Utilities/Button";
 import paper from "../assets/paper.jpeg";
 import { createSelector } from "reselect";
-import { Bookmark } from "lucide-react";
 // import axios from 'axios';
 const selectUserArticles = (state: RootState, userId: string) =>
   state.savedArticles.articles.find((entry) => entry.user === userId);

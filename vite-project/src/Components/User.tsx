@@ -63,9 +63,9 @@ type NewsFeedProps = {
 interface UserArticle {
   url: string;
   user: string;
-  liked?: NewsFeedProps[]; // or any other type that matches your data structure
-  disliked?: NewsFeedProps[]; // same here
-  saved?: NewsFeedProps[]; // if used
+  liked?: NewsFeedProps[]; 
+  disliked?: NewsFeedProps[]; 
+  saved?: NewsFeedProps[]; 
 }
 
 const User = () => {
@@ -129,13 +129,13 @@ const User = () => {
     }
   };
 
-  const handleLikeClick = (article: any) => {
+  const handleLikeClick = (article: NewsFeedProps) => {
     if (isAuthenticated) {
       dispatch(likeArticle({ user: user?.email, article: article }));
     }
   };
 
-  const handleDislikeClick = (article: any) => {
+  const handleDislikeClick = (article: NewsFeedProps) => {
     if (isAuthenticated) {
       dispatch(disLikeArticle({ user: user?.email, article: article }));
     }
