@@ -18,6 +18,7 @@ import { Ellipsis } from "lucide-react";
 const TopArticles = () => {
   const dispatch = useDispatch();
   const articles = useSelector((state: RootState) => state.topArticles.article);
+  const language = useSelector((state: RootState) => state.api.language);
   // const [articles,setArticles] = useState([])
   useEffect(() => {
     console.log("s1");
@@ -27,7 +28,7 @@ const TopArticles = () => {
 
       try {
         const response = await axios.get(
-          "https://newsapi.org/v2/top-headlines?country=in&apiKey=12091f9a14bc41819638c4932e4a536f"
+          `https://newsapi.org/v2/top-headlines?country=in&language=${language}apiKey=12091f9a14bc41819638c4932e4a536f`
         );
         // setArticles(response.data.articles);
         dispatch(topArticle(response.data.articles));

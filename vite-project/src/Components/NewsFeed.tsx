@@ -80,6 +80,7 @@ const NewsFeed = ({ article }: ArtcleProps) => {
   // });
   const [likeSelected, setLikeSelected] = useState(false);
   const [dislikeSelected, setDislikeSelected] = useState(false);
+  
   useEffect(() => {
     if (savedArticles) {
       ArticleStatusChecker();
@@ -125,16 +126,20 @@ const NewsFeed = ({ article }: ArtcleProps) => {
       }
     }
   };
-
+  // const filteredArticles = articles.filter(
+  //   (article) => article.title && article.content && article.urlToImage
+  // );
   return (
     <div className=" flex mb-3 ">
-      <div className="rounded-lg bg-slate-100 p-3 auto">
+      <div className="rounded-lg bg-slate-100 p-3 auto w-full">
         {/* <div className='bg-slate-200 p-3 rounded-lg'> */}
         <h1 className=" font-bold mb-1 text-xl text-neutral-900 text-center">
           {article.title}
         </h1>
-        <div className="w-fit  flex mb-1">
-          <img src={article.urlToImage || paper} alt="" />
+        <div className="  flex mb-1   ">
+          <img src={article.urlToImage || paper} alt="" className="w-full h-56 object-cover rounded-lg"
+          onError={(e)=> {const img = e.target as HTMLImageElement; img.src=paper} }
+          />
         </div>
         <h1 className="text-black font-semibold">{article.description}</h1>
         {/* </div> */}

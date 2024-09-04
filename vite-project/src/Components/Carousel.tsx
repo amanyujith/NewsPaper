@@ -64,6 +64,7 @@ const Carousel = () => {
                       <div className="">
                         <img
                           src={article.urlToImage || paper}
+                          onError={(e)=> {const img = e.target as HTMLImageElement; img.src=paper} }
                           alt={article.title}
                           className=" h-48 min-w-full rounded-t-lg"
                         />

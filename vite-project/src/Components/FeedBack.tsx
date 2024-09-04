@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useDispatch } from "react-redux";
 import { MessageCircle } from "lucide-react";
 import { addFeedBack } from "../store/feedbackSlice";
 import Form from "./Form";
+import Modal from "./Modal";
 const FeedBack = () => {
   const { user } = useAuth0();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [message ,setMessage] = useState('');
+  const [isModalOpen , setIsmodalopen] = useState(false)
   const [formData, setFormData] = useState({
     input1: "",
     input2: "",
@@ -35,13 +38,24 @@ const FeedBack = () => {
       formData.input3 === "" ||
       formData.rating <= 0
     ) {
-      alert("Fill All The Fields");
+        setMessage('Fill All The Fields')
+        setIsmodalopen(true)
       return;
     }
     dispatch(addFeedBack(FeedBackItem));
-    alert("Done");
+    setMessage('Submitted Successfully')
+   
     setOpen(false);
+    setIsmodalopen(true)
   };
+  useEffect(()=>{
+    if(isModalOpen){
+        const timer = setTimeout(()=>{
+            setIsmodalopen(false);
+        },3000);
+        return()=> clearTimeout(timer)
+    }
+  })
   return (
     <div className="">
       <MessageCircle
@@ -56,6 +70,9 @@ const FeedBack = () => {
           formData={formData}
         />
       )}
+      <Modal
+      isOpen={isModalOpen} message={message} 
+      />
     </div>
   );
 };

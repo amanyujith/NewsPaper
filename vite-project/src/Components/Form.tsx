@@ -24,7 +24,7 @@ const Form = ({ onChange, onClose, onSubmit, formData }: FormProps) => {
   return (
     <div>
       <div
-        className="modal-container fixed  inset-0 z-50 flex items-center justify-end pr-7   bg-black bg-opacity-50 "
+        className="modal-container fixed  inset-0 z-40 flex items-center justify-end pr-7   bg-black bg-opacity-50 "
         onClick={handleCloseModal}
       >
         <div className="bg-white p-6 h-fit rounded-lg shadow-lg  w-11/12 md:w-1/2 lg:w-1/3">
