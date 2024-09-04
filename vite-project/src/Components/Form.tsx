@@ -11,18 +11,22 @@ interface FormProps {
   };
 }
 const Form = ({ onChange, onClose, onSubmit, formData }: FormProps) => {
-
-    const handleCloseModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        // Close the dropdown if the click is outside of the dropdown content
-        const target = e.target as HTMLElement;
-        if (target.classList.contains('modal-container')) {
-            onClose()
-        }
-    };
+  const handleCloseModal = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    // Close the dropdown if the click is outside of the dropdown content
+    const target = e.target as HTMLElement;
+    if (target.classList.contains("modal-container")) {
+      onClose();
+    }
+  };
 
   return (
     <div>
-      <div className="modal-container fixed  inset-0 z-50 flex items-center justify-end pr-7   bg-black bg-opacity-50 " onClick={handleCloseModal}>
+      <div
+        className="modal-container fixed  inset-0 z-50 flex items-center justify-end pr-7   bg-black bg-opacity-50 "
+        onClick={handleCloseModal}
+      >
         <div className="bg-white p-6 h-fit rounded-lg shadow-lg  w-11/12 md:w-1/2 lg:w-1/3">
           <button
             onClick={onClose}
@@ -30,7 +34,9 @@ const Form = ({ onChange, onClose, onSubmit, formData }: FormProps) => {
           >
             X
           </button>
-          <label htmlFor="">What type of content would you like to see more?</label>
+          <label htmlFor="">
+            What type of content would you like to see more?
+          </label>
           <input
             type="text"
             value={formData.input1}
@@ -38,7 +44,9 @@ const Form = ({ onChange, onClose, onSubmit, formData }: FormProps) => {
             onChange={onChange}
             className="border border-gray-300 rounded-lg p-2 w-full mb-4"
           />
-          <label htmlFor="">Do you find the reading experience comfortable?</label>
+          <label htmlFor="">
+            Do you find the reading experience comfortable?
+          </label>
           <input
             type="text"
             value={formData.input2}

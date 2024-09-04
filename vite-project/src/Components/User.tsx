@@ -16,13 +16,15 @@ import ProfileDropdown from "./ProfileDropdown";
 import { MenuIcon } from "lucide-react";
 import Button from "../Utilities/Button";
 import ScrollToTop from "./ScrollToTop";
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
 const selectSavedArticles = createSelector(
   (state: RootState) => state.savedArticles.articles,
   (_, userId: string | undefined) => userId,
   (articles, userId) => {
-    const userArticles = articles.find((entry:UserArticle) => entry.user === userId);
+    const userArticles = articles.find(
+      (entry: UserArticle) => entry.user === userId
+    );
     return userArticles ? userArticles.saved : [];
   }
 );
@@ -31,7 +33,9 @@ const selectLikedArticles = createSelector(
   (state: RootState) => state.likedArticles.articles,
   (_, userId: string | undefined) => userId,
   (articles, userId) => {
-    const userArticles = articles.find((entry:UserArticle) => entry.user === userId);
+    const userArticles = articles.find(
+      (entry: UserArticle) => entry.user === userId
+    );
     return userArticles ? userArticles.liked : [];
   }
 );
@@ -40,7 +44,9 @@ const selectDislikedArticles = createSelector(
   (state: RootState) => state.likedArticles.articles,
   (_, userId: string | undefined) => userId,
   (articles, userId) => {
-    const userArticles = articles.find((entry:UserArticle) => entry.user === userId);
+    const userArticles = articles.find(
+      (entry: UserArticle) => entry.user === userId
+    );
     return userArticles ? userArticles.disliked : [];
   }
 );
@@ -71,15 +77,15 @@ const User = () => {
   const savedArticles = useSelector((state: RootState) =>
     selectSavedArticles(state, userId)
   );
-  
+
   const LikedArticles = useSelector((state: RootState) =>
     selectLikedArticles(state, userId)
   );
-  
+
   const DislikedArticles = useSelector((state: RootState) =>
     selectDislikedArticles(state, userId)
   );
-  
+
   // const savedArticles = useSelector((state: RootState) => {
   //   const userArticles = state.savedArticles.articles.find(
   //     (entry) => entry.user === userId
@@ -215,13 +221,13 @@ const User = () => {
         <div className="flex flex-row flex-wrap gap-3 justify-evenly my-5">
           {renderArticle().map((article) => {
             const isSaved = savedArticles.some(
-              (item:UserArticle) => item.url === article.url
+              (item: UserArticle) => item.url === article.url
             );
             const isLiked = LikedArticles.some(
-              (item:UserArticle) => item.url === article.url
+              (item: UserArticle) => item.url === article.url
             );
             const isDisliked = DislikedArticles.some(
-              (item:UserArticle) => item.url === article.url
+              (item: UserArticle) => item.url === article.url
             );
 
             return (
@@ -257,37 +263,45 @@ const User = () => {
                   </div>
                   <div className="flex">
                     <div className="flex justify-end">
-                    {view === "saved" ? (
-                      // <Button
-                      //   value="Remove"
-                      //   onClick={() => handleRemove(article.url)}
-                      //   cl="hover:bg-gray-100 flex"
-                      // />
-                      <Button value={<FaBookmark />} onClick={()=>handleRemove(article.url)} cl="text-gray-800 w-fit text-2xl"/>
-                    ) : (
-                      <Button value={<FaBookmark />} onClick={()=>handleSave(article)}  cl={` ${
-                        isSaved? "text-gray-800" : "text-gray-400 "
-                      }  w-fit text-2xl` }/>
-                      // <Button
-                      //   value={isSaved ? "SAVED" : "SAVE"}
-                      //   onClick={() => handleSave(article)}
-                      // />
-                    )}
-                    <div className="flex justify-end max-w-[50%] ">
-                      <Button
-                        value={<FaThumbsUp />}
-                        onClick={() => handleLikeClick(article)}
-                        cl={`text-2xl  max-w-fit  ${
-                          isLiked ? "text-green-400" : "text-gray-400"
-                        }`}
-                      />
-                      <Button
-                        value={<FaThumbsDown />}
-                        onClick={() => handleDislikeClick(article)}
-                        cl={`text-2xl max-w-fit  ${
-                          isDisliked ? "text-red-500" : "text-gray-400"
-                        }`}
-                      />
+                      {view === "saved" ? (
+                        // <Button
+                        //   value="Remove"
+                        //   onClick={() => handleRemove(article.url)}
+                        //   cl="hover:bg-gray-100 flex"
+                        // />
+                        <Button
+                          value={<FaBookmark />}
+                          onClick={() => handleRemove(article.url)}
+                          cl="text-gray-800 w-fit text-2xl"
+                        />
+                      ) : (
+                        <Button
+                          value={<FaBookmark />}
+                          onClick={() => handleSave(article)}
+                          cl={` ${
+                            isSaved ? "text-gray-800" : "text-gray-400 "
+                          }  w-fit text-2xl`}
+                        />
+                        // <Button
+                        //   value={isSaved ? "SAVED" : "SAVE"}
+                        //   onClick={() => handleSave(article)}
+                        // />
+                      )}
+                      <div className="flex justify-end max-w-[50%] ">
+                        <Button
+                          value={<FaThumbsUp />}
+                          onClick={() => handleLikeClick(article)}
+                          cl={`text-2xl  max-w-fit  ${
+                            isLiked ? "text-green-400" : "text-gray-400"
+                          }`}
+                        />
+                        <Button
+                          value={<FaThumbsDown />}
+                          onClick={() => handleDislikeClick(article)}
+                          cl={`text-2xl max-w-fit  ${
+                            isDisliked ? "text-red-500" : "text-gray-400"
+                          }`}
+                        />
                       </div>
                     </div>
                     {/* <button

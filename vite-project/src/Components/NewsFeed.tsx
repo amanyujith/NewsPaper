@@ -19,13 +19,19 @@ const selectSavedArticles = createSelector(
 );
 
 const selectLikedArticles = createSelector(
-  [(state: RootState) => state.likedArticles.articles, (_, userId: string) => userId],
+  [
+    (state: RootState) => state.likedArticles.articles,
+    (_, userId: string) => userId,
+  ],
   (articles, userId) =>
     articles.find((entry) => entry.user === userId)?.liked || []
 );
 
 const selectDislikedArticles = createSelector(
-  [(state: RootState) => state.likedArticles.articles, (_, userId: string) => userId],
+  [
+    (state: RootState) => state.likedArticles.articles,
+    (_, userId: string) => userId,
+  ],
   (articles, userId) =>
     articles.find((entry) => entry.user === userId)?.disliked || []
 );
@@ -45,7 +51,7 @@ const NewsFeed = ({ article }: ArtcleProps) => {
   const { user, isAuthenticated } = useAuth0();
   const [save, setSave] = useState(false);
   const dispatch = useDispatch();
-  const userId = user?.email||'';
+  const userId = user?.email || "";
   const savedArticles = useSelector((state: RootState) =>
     selectSavedArticles(state, userId)
   );
@@ -80,7 +86,7 @@ const NewsFeed = ({ article }: ArtcleProps) => {
       ArticleStatusChecker();
     }
   }, [savedArticles]);
-  
+
   const ArticleStatusChecker = () => {
     const isSaved = savedArticles.some((item) => item.url === article.url);
     const isLiked = LikedArticles.some((item) => item.url === article.url);
@@ -97,7 +103,6 @@ const NewsFeed = ({ article }: ArtcleProps) => {
     if (isAuthenticated) {
       if (user?.email) {
         dispatch(addArticle({ user: user?.email, article: article }));
-        
       }
       setSave(!save);
     }
@@ -126,7 +131,9 @@ const NewsFeed = ({ article }: ArtcleProps) => {
     <div className=" flex mb-3 ">
       <div className="rounded-lg bg-slate-100 p-3 auto">
         {/* <div className='bg-slate-200 p-3 rounded-lg'> */}
-        <h1 className=" font-bold mb-1 text-xl text-neutral-900 text-center">{article.title}</h1>
+        <h1 className=" font-bold mb-1 text-xl text-neutral-900 text-center">
+          {article.title}
+        </h1>
         <div className="w-fit  flex mb-1">
           <img src={article.urlToImage || paper} alt="" />
         </div>
@@ -138,11 +145,11 @@ const NewsFeed = ({ article }: ArtcleProps) => {
           </a>
           <div className="flex ">
             <Button
-              value={<FaBookmark className=""/>}
+              value={<FaBookmark className="" />}
               onClick={handleSave}
               cl={` ${
-                  save? "text-gray-800" : "text-gray-400 "
-                }  w-fit text-2xl ` }
+                save ? "text-gray-800" : "text-gray-400 "
+              }  w-fit text-2xl `}
             />
             {/* <button onClick={handleSave}  className={` ${
                   save? "text-blue-500" : "text-gray-400"
@@ -166,15 +173,13 @@ const NewsFeed = ({ article }: ArtcleProps) => {
               >
                 <FaThumbsDown />
               </button>
-             
             </div>
           </div>
         </div>
       </div>
-     
+
       {/* </div> */}
     </div>
-
   );
 };
 
