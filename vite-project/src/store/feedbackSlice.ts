@@ -22,7 +22,15 @@ const feedbackSlice = createSlice({
     initialState,
     reducers:{
         addFeedBack:(state,action)=>{
-            state.feedback.push(action.payload)
+            const newsFeedback = action.payload;
+            const existingIndex = state.feedback.findIndex(fb => fb.user === newsFeedback.user);
+            if(existingIndex!==-1){
+                state.feedback[existingIndex] = newsFeedback
+            }
+            else{
+                state.feedback.push(action.payload)
+                         }
+            // state.feedback.push(action.payload)
         }
     }
 });

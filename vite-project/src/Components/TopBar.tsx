@@ -12,22 +12,10 @@ const TopBar = ()=>{
   const [issearch , setIsSearch ] = useState(false)
   const { loginWithRedirect } = useAuth0();
     const [search,setSearch] = useState('');
-    // const [modal,setModal] = useState(false)
     const dispatch = useDispatch();
-    // const handleSearch = ()=>{
-    //     if(search.trim()){
-    //         dispatch(setApiEndPoints(`everything?q=${search}`))
-    //     }
-    // }
     const navigate = useNavigate();
     const handleClick= ()=>{
       navigate('/user')
-      // if(user?.email==='amanyujith4444@gmail.com'){
-      //     navigate('/admin')
-      // }
-      // else{
-      //   navigate('/user')
-      // }
     }
     const {user,isAuthenticated} = useAuth0();
     const handleInput = (e: ChangeEvent<HTMLInputElement>)=>{
@@ -40,16 +28,19 @@ const TopBar = ()=>{
             dispatch(setApiEndPoints(`everything?q=general`))
         }
     }
+    const handleCloseModal = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+      // Close the dropdown if the click is outside of the dropdown content
+      const target = e.target as HTMLElement;
+      if (target.classList.contains('modal-container')) {
+          setIsSearch(!issearch)
+      }
+  };
     return  <div className="  sm:flex justify-between items-center  flex-wrap g px-5 pt-2  ">
       <div className="flex gap-2">
     <DropDown/>
-    {/* <button onClick={()=>setModal(true)}>Settings</button>
-    {modal && (
-      <DropDownMenu/>
-    )} */}
-      <Search onClick={()=>setIsSearch(!issearch)}/>
+      <Search onClick={()=>setIsSearch(!issearch)} className="cursor-pointer"/>
     {issearch && (
-      <div className="w-32 absolute top-10  mt-2 ">
+      <div className="modal-container w-32 absolute top-10 left-12 mt-2 "onClick={handleCloseModal}>
         <input
       type="text"
       onChange={handleInput}
@@ -61,15 +52,10 @@ const TopBar = ()=>{
     )}
     </div>
     <h1 className="flex w-full justify-center  sm:w-fit text-black font-extrabold text-xl">News <img src={paper} alt="" height="10" width="40"/> Daily</h1>
-    {/* <button onClick={handleSearch}
-    className="px-4 py-2 mr-4 bg-blue-500 text-white rounded-lg hover:bg-blue-400">
-      Search
-    </button> */}
-    
   <div>
     {isAuthenticated ? (
       <img src={user?.picture} alt="" height="50" width="50" onClick={handleClick} className="rounded-full cursor-pointer border-2 border-neutral-200 hover:border-neutral-400 transition-all duration-100 w-10 mb-1"/>
-    ):(<div className="flex "><Login/><User onClick={()=>loginWithRedirect}/></div>)}
+    ):(<div className="flex "><Login/><User onClick={()=>loginWithRedirect()} className="cursor-pointer"/></div>)}
   </div>
   </div>
 }

@@ -11,13 +11,14 @@ import AdminSaved from './AdminSaved'
 import AdminLiked from './AdminLiked'
 import AdminDisliked from './AdminDisliked'
 import AdminFeedback from './AdminFeedback'
+import { InfinitySpin } from 'react-loader-spinner'
 
 function App() {
 
   return (
     
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<InfinitySpin/>} persistor={persistor}>
       <Router>
         <Routes>
      <Route path='/' element={<Home/>}/>

@@ -34,6 +34,9 @@ const SavedArticlesSlice  = createSlice({
                     if(!articleExists){
                             userArticle.saved.push(article)
                     }
+                    else{
+                       userArticle.saved= userArticle.saved.filter((item)=>item.url!==article.url)
+                    }
                 }
             }
             else{

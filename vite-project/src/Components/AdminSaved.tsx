@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import paper from '../assets/paper.jpeg'
+import Button from "../Utilities/Button";
 
 const AdminSaved = ()=>{
     const {user} = useParams<{user:string}>();
@@ -12,8 +13,11 @@ const AdminSaved = ()=>{
     })
     //like
     //dislike
-    return <div className="bg-neutral-200">
-            <h1 className=" flex justify-center text-black font-bold">SAVED ARTICLES</h1>
+    return <div className="bg-neutral-200 sm:h-screen  ">
+            <div>
+              <Button value="Back" onClick={()=>window.location.href='/admin'}/>
+              <h1 className=" flex justify-center text-black font-bold">SAVED ARTICLES</h1>
+            </div>
             {articles.map((article)=>(
                 <div className="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-4 p-6">
                 <div className="sm:flex ">
@@ -26,7 +30,7 @@ const AdminSaved = ()=>{
                 <p className="text-gray-600 mt-4">{article.content}</p>
                 <div className="flex justify-between items-center mt-4">
                   <p className="text-sm text-gray-500">{article.author}</p>
-                  <a href={article.url}>Read More</a>
+                  <a href={article.url} className="hover:text-blue-400">Read More</a>
                   <div className="flex space-x-4">
                   </div>
                 </div>

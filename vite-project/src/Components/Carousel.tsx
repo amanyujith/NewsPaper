@@ -53,7 +53,7 @@ const Carousel = ()=>{
         <div className="flex flex-col  bg-slate-100">
         <div className="bg-white">
            
-    <div className="embla bg-neutral-100 p-2 rounded-lg mt-1 border-2 mr-2 " >
+    <div className="embla bg-neutral-100 p-2 rounded-lg mt-1 mr-2 " >
         <div className="embla__viewport mb-1" ref={emblaRef}>
     <div className="embla__container ">
     {articles &&
@@ -62,7 +62,7 @@ const Carousel = ()=>{
                <div className="">
                <img src={article.urlToImage||paper} alt={article.title} className=" h-48 min-w-full rounded-t-lg"/>
                </div >
-               <a href={article.url} className="hover:underline hover:text-neutral-700"> <i><h1 className="px-4">{article.title}</h1></i></a>
+               <a href={article.url} className="hover:underline hover:text-neutral-700"> <h1 className="px-4">{article.title}</h1></a>
               </div>
             ))}
      
@@ -74,10 +74,10 @@ const Carousel = ()=>{
   </div>
         </div>
         </div>
-        <div className="mt-3 bg-slate-100 flex justify-between h-20 rounded-lg mr-2 border-2 p-2">
+        <div className="mt-3 bg-slate-100 flex justify-between h-20 rounded-lg mr-2  p-2">
             <h1>hhhhhh</h1>
         <div>
-            <h1>Feedback</h1>
+            {/* <h1>Feedback</h1> */}
         <FeedBack />
         </div>
         </div>

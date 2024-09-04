@@ -11,7 +11,7 @@ import {
   likeArticle,
   disLikeArticle,
 } from "../store/likesSlice";
-import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
+import { FaBookmark, FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import ProfileDropdown from "./ProfileDropdown";
 import { MenuIcon } from "lucide-react";
 import Button from "../Utilities/Button";
@@ -258,23 +258,27 @@ const User = () => {
                   <div className="flex">
                     <div className="flex justify-end">
                     {view === "saved" ? (
-                      <Button
-                        value="Remove"
-                        onClick={() => handleRemove(article.url)}
-                        cl="hover:bg-gray-100 flex"
-                      />
+                      // <Button
+                      //   value="Remove"
+                      //   onClick={() => handleRemove(article.url)}
+                      //   cl="hover:bg-gray-100 flex"
+                      // />
+                      <Button value={<FaBookmark />} onClick={()=>handleRemove(article.url)} cl="text-gray-800 w-fit text-2xl"/>
                     ) : (
-                      <Button
-                        value={isSaved ? "SAVED" : "SAVE"}
-                        onClick={() => handleSave(article)}
-                      />
+                      <Button value={<FaBookmark />} onClick={()=>handleSave(article)}  cl={` ${
+                        isSaved? "text-gray-800" : "text-gray-400 "
+                      }  w-fit text-2xl` }/>
+                      // <Button
+                      //   value={isSaved ? "SAVED" : "SAVE"}
+                      //   onClick={() => handleSave(article)}
+                      // />
                     )}
                     <div className="flex justify-end max-w-[50%] ">
                       <Button
                         value={<FaThumbsUp />}
                         onClick={() => handleLikeClick(article)}
                         cl={`text-2xl  max-w-fit  ${
-                          isLiked ? "text-blue-500" : "text-gray-400"
+                          isLiked ? "text-green-400" : "text-gray-400"
                         }`}
                       />
                       <Button

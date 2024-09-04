@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaThumbsUp, FaThumbsDown, FaBookmark } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { addArticle } from "../store/newsSlice";
 import { likeArticle, disLikeArticle } from "../store/likesSlice";
@@ -8,6 +8,7 @@ import { RootState } from "../store/store";
 import Button from "../Utilities/Button";
 import paper from "../assets/paper.jpeg";
 import { createSelector } from "reselect";
+import { Bookmark } from "lucide-react";
 // import axios from 'axios';
 const selectUserArticles = (state: RootState, userId: string) =>
   state.savedArticles.articles.find((entry) => entry.user === userId);
@@ -42,7 +43,7 @@ interface ArtcleProps {
 }
 const NewsFeed = ({ article }: ArtcleProps) => {
   const { user, isAuthenticated } = useAuth0();
-  const [save, setSave] = useState("SAVE");
+  const [save, setSave] = useState(false);
   const dispatch = useDispatch();
   const userId = user?.email||'';
   const savedArticles = useSelector((state: RootState) =>
@@ -79,13 +80,14 @@ const NewsFeed = ({ article }: ArtcleProps) => {
       ArticleStatusChecker();
     }
   }, [savedArticles]);
+  
   const ArticleStatusChecker = () => {
     const isSaved = savedArticles.some((item) => item.url === article.url);
     const isLiked = LikedArticles.some((item) => item.url === article.url);
     const isDisliked = DislikedArticles.some(
       (item) => item.url === article.url
     );
-    if (isSaved) setSave("SAVED");
+    if (isSaved) setSave(true);
     if (isLiked) setLikeSelected(true);
     if (isDisliked) setDislikeSelected(true);
   };
@@ -95,8 +97,9 @@ const NewsFeed = ({ article }: ArtcleProps) => {
     if (isAuthenticated) {
       if (user?.email) {
         dispatch(addArticle({ user: user?.email, article: article }));
+        
       }
-      setSave("SAVED");
+      setSave(!save);
     }
   };
   const handleLikeClick = () => {
@@ -120,14 +123,14 @@ const NewsFeed = ({ article }: ArtcleProps) => {
   };
 
   return (
-    <div className=" flex  ">
-      <div className="border-2 rounded-lg bg-slate-100 p-3 auto">
+    <div className=" flex mb-3 ">
+      <div className="rounded-lg bg-slate-100 p-3 auto">
         {/* <div className='bg-slate-200 p-3 rounded-lg'> */}
-        <h1 className="font-mono font-bold ">{article.title}</h1>
-        <div className="w-fit  flex ">
+        <h1 className=" font-bold mb-1 text-xl text-neutral-900 text-center">{article.title}</h1>
+        <div className="w-fit  flex mb-1">
           <img src={article.urlToImage || paper} alt="" />
         </div>
-        <p className="text-black font-mono">{article.description}</p>
+        <h1 className="text-black font-semibold">{article.description}</h1>
         {/* </div> */}
         <div className="flex justify-between p-2 items-center">
           <a href={article.url} className="underline hover:text-blue-400">
@@ -135,15 +138,22 @@ const NewsFeed = ({ article }: ArtcleProps) => {
           </a>
           <div className="flex ">
             <Button
-              value={save}
+              value={<FaBookmark className=""/>}
               onClick={handleSave}
-              cl="hover:bg-white mr-2"
+              cl={` ${
+                  save? "text-gray-800" : "text-gray-400 "
+                }  w-fit text-2xl ` }
             />
+            {/* <button onClick={handleSave}  className={` ${
+                  save? "text-blue-500" : "text-gray-400"
+                }`}>
+            <FaBookmark />
+            </button> */}
             <div className="flex gap-3">
               <button
                 onClick={handleLikeClick}
                 className={`text-2xl ${
-                  likeSelected ? "text-blue-500" : "text-gray-400"
+                  likeSelected ? "text-green-400" : "text-gray-400"
                 }`}
               >
                 <FaThumbsUp />
@@ -156,6 +166,7 @@ const NewsFeed = ({ article }: ArtcleProps) => {
               >
                 <FaThumbsDown />
               </button>
+             
             </div>
           </div>
         </div>

@@ -29,7 +29,8 @@
     "react-router-dom": "^6.26.1",
     "react-spinners": "^0.14.1",
     "redux-persist": "^6.0.0",
-    "reselect": "^5.1.1"
+    "reselect": "^5.1.1",
+    "rsuite": "^5.70.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

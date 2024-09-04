@@ -43,9 +43,9 @@ const TopArticles = ()=>{
     // console.log(top,'2222222222');
    
     
-    return <div>
+    return <div className="">
         
-        <div className="flex flex-col  bg-slate-100 p-2 rounded-lg ml-2 border-2 mt-6">
+        <div className="flex flex-col  bg-slate-100 p-2 rounded-lg ml-2 mt-6">
         <div className="flex justify-center rounded-lg ">
             <Ellipsis color="black"/>
             <h1 className="flex justify-center text-gray-950 font-bold">Editor's Pick</h1>
@@ -54,7 +54,7 @@ const TopArticles = ()=>{
             {articles && articles.map((article)=>
            { 
             return(
-                <div className="sm:border-y-2 sm:border-x-0 border-x-2 border-gray-700 hover:bg-slate-100 p-2 rounded-lg min-w-full">
+                <div className=" sm:border-x-0 sm:mt-2 mr-2  hover:bg-slate-100 p-2 rounded-lg min-w-fit">
                     <a href={article.url} className="font-serif">{article.title}</a>
                 </div>
             )

@@ -8,7 +8,7 @@ const DropDown = ()=>{
     const [languageDropdownOpen , setLanguageDropdownOpen] = useState(false);
     const [sortDropdownOpen , setSortDropdownOpen] = useState(false);
     const [languageText , setLanguageText] = useState('Language');
-    const [sortText,setSortText] = useState('Relevancy')
+    const [sortText,setSortText] = useState('SortBy')
     const toggleDropdown = () =>setDropDownOpen(!dropdownOpen);
     const toggleLanguageDropdown = () => setLanguageDropdownOpen(!languageDropdownOpen);
     const toggleSortDropdown = () => setSortDropdownOpen(!sortDropdownOpen);
@@ -23,12 +23,16 @@ const DropDown = ()=>{
             setSortText(text);
             setSortDropdownOpen(!sortDropdownOpen)
     }
-     return   <div className="relative">
-     <div className="mb-4">
+    
+
+    return (
+        <div >
+            <div className="mb-4">
          <SlidersHorizontal onClick={toggleDropdown} className="cursor-pointer text-gray-600 hover:text-gray-800" />
      </div>
      {dropdownOpen && (
-         <div className="bg-white shadow-lg rounded-lg p-4 absolute left-0 mt-2 w-40">
+       
+         <div className="bg-white shadow-lg rounded-lg p-4 absolute mt-2 w-40 top-6 left-2">
              <button
                  onClick={toggleLanguageDropdown}
                  className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 bg-gray-200 hover:text-gray-900 rounded"
@@ -104,7 +108,8 @@ const DropDown = ()=>{
                  </div>
              )}
          </div>
+         
      )}
  </div>
-}
+)}
 export default DropDown;
