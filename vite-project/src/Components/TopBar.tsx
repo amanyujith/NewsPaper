@@ -1,13 +1,14 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { setApiEndPoints } from "../store/apiSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setApiEndPoints,selectApiEndPoints } from "../store/apiSlice";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
 import DropDown from "./DropDown";
 import paper from "../assets/paper.jpeg";
 // import Button from "../Utilities/Button";
-import { Search, User } from "lucide-react";
+import {  Search, User } from "lucide-react";
 import Login from "../Auth0/Login";
+import { FaFacebookF, FaInstagram } from "react-icons/fa";
 const TopBar = () => {
   let menuRef = useRef<HTMLDivElement>(null);
   const [issearch, setIsSearch] = useState(false);
@@ -18,20 +19,35 @@ const TopBar = () => {
   const handleClick = () => {
     navigate("/user");
   };
-  const { user, isAuthenticated } = useAuth0();
+  const currentEndpoint = useSelector(selectApiEndPoints);
+console.log(currentEndpoint,"api");
+
+  const currentDate = new Date();
+
+  const options: Intl.DateTimeFormatOptions = { 
+    weekday: 'long', 
+    year: 'numeric',
+    month: 'short',  
+    day: 'numeric'   
+  };
+  
+  const formattedDate = currentDate.toLocaleDateString('en-US', options).toUpperCase();
+  
+const { user, isAuthenticated } = useAuth0();
   const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value.trim();
     setSearch(inputValue);
-    if (inputValue !== "") {
-      dispatch(setApiEndPoints(`everything?q=${search}`));
-    } else {
-      dispatch(setApiEndPoints(`everything?q=general`));
-    }
+    const query = inputValue === "" ? "general" : inputValue;
+  dispatch(setApiEndPoints(`everything?q=${query}`));
+    // if (inputValue !== "") {
+    //   dispatch(setApiEndPoints(`everything?q=${search}`));
+    // } else {
+    //   dispatch(setApiEndPoints(`everything?q=general`));
+    // }
   };
   const handleCloseModal = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>
   ) => {
-    // Close the dropdown if the click is outside of the dropdown content
     const target = e.target as HTMLElement;
     if (target.classList.contains("modal-container")) {
       setIsSearch(!issearch);
@@ -49,18 +65,20 @@ const TopBar = () => {
     };
   });
   return (
-    <div className="  sm:flex justify-between items-center  flex-wrap g px-5 pt-2  ">
-      <div className="flex gap-2">
+    <div className="  sm:flex  items-center  flex-wrap  px-5 pt-2 ">
+     
+      <div className="flex gap-2  w-[300px]"  ref={menuRef}>
         <DropDown />
         <Search
           onClick={() => setIsSearch(!issearch)}
           className="cursor-pointer"
+          
         />
         {issearch && (
           <div
             className="modal-container w-32 absolute top-10 left-12 mt-2 "
             onClick={handleCloseModal}
-            ref={menuRef}
+           
           >
             <input
               type="text"
@@ -71,11 +89,18 @@ const TopBar = () => {
             />
           </div>
         )}
+         <p className="font-semibold">{formattedDate}</p>
       </div>
-      <h1 className="flex w-full justify-center  sm:w-fit text-black font-extrabold text-xl">
+     
+      <h1 className="flex flex-1 justify-center items-center w-full  sm:w-fit text-black font-extrabold text-xl" >
         News <img src={paper} alt="" height="10" width="40" /> Daily
       </h1>
-      <div>
+      <div className="flex w-[300px]  sm:justify-end gap-2 items-center">
+       <div className="flex gap-1">
+      <a href="https://www.instagram.com/_am4nyuj1th._/?next=%2F"><FaInstagram size={25} className="cursor-pointer  hover:text-red-500"/></a>
+      <a href="https://www.facebook.com/amanyujith.raj"> <FaFacebookF size={25} className="cursor-pointer  hover:text-blue-500"/></a>
+
+       </div>
         {isAuthenticated ? (
           <img
             src={user?.picture}

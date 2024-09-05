@@ -8,6 +8,17 @@
     padding: 0;
 
 } */
+
+.hide-scrollbar {
+  overflow-x: auto; /* Allow horizontal scrolling */
+  overflow-y: auto; /* Allow vertical scrolling */
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+}
+
 .embla__viewport {
     overflow: hidden;
   }

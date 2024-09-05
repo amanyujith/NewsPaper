@@ -22,13 +22,13 @@ const TopArticles = () => {
   // const [articles,setArticles] = useState([])
   useEffect(() => {
     console.log("s1");
-
+    const apiKey = "46b9fd0e42f145a991f66b0d67257abf";
     const Articles = async () => {
       console.log("s2");
 
       try {
         const response = await axios.get(
-          `https://newsapi.org/v2/top-headlines?country=in&language=${language}apiKey=12091f9a14bc41819638c4932e4a536f`
+         `https://newsapi.org/v2/top-headlines?country=us&apiKey=d66f4b23725b49a3a7bbd6d751048426`
         );
         // setArticles(response.data.articles);
         dispatch(topArticle(response.data.articles));
@@ -43,18 +43,18 @@ const TopArticles = () => {
 
   return (
     <div className="">
-      <div className="flex flex-col  bg-slate-100 p-2 rounded-lg ml-2 mt-6">
-        <div className="flex justify-center rounded-lg ">
+      <div className="flex flex-col   p-2 rounded-lg ml-2 mt-6">
+        <div className="flex justify-start rounded-lg ml-3">
           <Ellipsis color="black" />
           <h1 className="flex justify-center text-gray-950 font-bold">
             Editor's Pick
           </h1>
         </div>
-        <div className="bg-white flex flex-row  sm:flex-col rounded-lg  max-h-[430px] overflow-x-auto sm:overflow-y-auto">
+        <div className="bg-white flex flex-row  sm:flex-col rounded-lg  max-h-[430px] overflow-x-auto sm:overflow-y-auto hide-scrollbar border-r-2">
           {articles &&
             articles.map((article) => {
               return (
-                <div className=" sm:border-x-0 sm:mt-2 mr-2  hover:bg-slate-100 p-2 rounded-lg min-w-fit">
+                <div className=" sm:border-x-0 sm:mt-2 mr-2  hover:bg-slate-100 p-2 rounded-lg min-w-fit border-b-2 ">
                   <a href={article.url} className="font-serif">
                     {article.title}
                   </a>

@@ -9,15 +9,25 @@ import TopArticles from "./TopArticles";
 import Carousel from "./Carousel";
 import ScrollToTop from "./ScrollToTop";
 import { InfinitySpin } from "react-loader-spinner";
+interface Article {
+  title: string;
+  content: string;
+  urlToImage: string;
+  url: string;
+  description: string;
+  author: string;
+  publishedAt: Date;
+}
+
 const Home = () => {
-  const [articles, setArticles] = useState([]);
+  const [articles, setArticles] = useState<Article[]>([]);
   const apiEndPoints = useSelector(
     (state: RootState) => state.api.apiEndPoints
   );
   const [isLoading, setIsLoading] = useState(false);
   const language = useSelector((state: RootState) => state.api.language);
   const sort = useSelector((state: RootState) => state.api.sortBy);
-  const apiKey = "12091f9a14bc41819638c4932e4a536f";
+  const apiKey = "d66f4b23725b49a3a7bbd6d751048426";
   console.log("sorttttt", sort);
   useEffect(() => {
     setIsLoading(true);
@@ -43,10 +53,10 @@ const Home = () => {
       <TopBar />
       <NavBar />
       <div className="flex flex-col w-full  sm:flex-row">
-        <div className="flex-grow  sm:w-3/12 order-2 sm:order-1">
+        <div className="flex-grow  sm:w-3/12 order-2 sm:order-1 ">
           <TopArticles />
         </div>
-        <div className="flex-row sm:w-5/12 justify-center p-3 mt-3 max-h-[480px] overflow-y-auto order-3 sm:order-2">
+        <div className="hide-scrollbar flex-row sm:w-5/12 justify-center p-3 mt-3 max-h-[480px] overflow-y-auto order-3 sm:order-2">
           {isLoading ? (
             <div className="flex justify-center items-center">
               <InfinitySpin
@@ -57,7 +67,7 @@ const Home = () => {
               />
             </div>
           ) : (
-            <div>
+            <div className="">
               {articles.filter((article)=>article.title && article.content && article.urlToImage).
               map((article) => (
                 <NewsFeed article={article} />

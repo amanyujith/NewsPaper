@@ -60,7 +60,6 @@ const NavBar = () => {
               icon: <BriefcaseBusiness />,
               endpoint: "everything?q=business",
             },
-            // { id: 'Entertainment', label: 'ENTERTAINMENT', icon: <TvMinimalPlay />, endpoint: 'everything?q=entertainment' },
           ].map((button) => (
             <button
               key={button.id}

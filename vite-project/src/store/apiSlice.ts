@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { RootState } from "./store";
 
 const initialState={
     apiEndPoints :'everything?q=general',
@@ -22,3 +23,4 @@ const apiSlice = createSlice({
 })
 export default apiSlice.reducer;
 export const {setApiEndPoints,setLanguage,setSortBy} = apiSlice.actions;
+export const selectApiEndPoints = (state: RootState) => state.api.apiEndPoints;

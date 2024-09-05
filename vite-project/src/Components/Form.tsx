@@ -62,15 +62,15 @@ const Form = ({ onChange, onClose, onSubmit, formData }: FormProps) => {
             onChange={onChange}
             className="border border-gray-300 rounded-lg p-2 w-full mb-4"
           />
-          {/* <label htmlFor=""></label>
+          <label htmlFor="">Additional category you like to see on the site?</label>
           <input
             type="text"
             value={formData.input4}
             name="input4"
             onChange={onChange}
-            placeholder="How satisfied are you with the search functionality on our platform?"
+            placeholder=""
             className="border border-gray-300 rounded-lg p-2 w-full mb-4"
-          /> */}
+          />
           <label htmlFor="">Rate us out of 5</label>
           <input
             type="number"

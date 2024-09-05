@@ -8,6 +8,7 @@ import { RootState } from "../store/store";
 import Button from "../Utilities/Button";
 import paper from "../assets/paper.jpeg";
 import { createSelector } from "reselect";
+import './index.css'
 // import axios from 'axios';
 const selectUserArticles = (state: RootState, userId: string) =>
   state.savedArticles.articles.find((entry) => entry.user === userId);
@@ -99,6 +100,7 @@ const NewsFeed = ({ article }: ArtcleProps) => {
   };
   const handleSave = () => {
     console.log(typeof article, "arrrr");
+console.log(article,"article");
 
     if (isAuthenticated) {
       if (user?.email) {
@@ -131,9 +133,9 @@ const NewsFeed = ({ article }: ArtcleProps) => {
   // );
   return (
     <div className=" flex mb-3 ">
-      <div className="rounded-lg bg-slate-100 p-3 auto w-full">
+      <div className="rounded-lg  p-3 auto w-full border-b-2">
         {/* <div className='bg-slate-200 p-3 rounded-lg'> */}
-        <h1 className=" font-bold mb-1 text-xl text-neutral-900 text-center">
+        <h1 className=" font-bold font-serif mb-1 text-xl text-neutral-900 text-center ">
           {article.title}
         </h1>
         <div className="  flex mb-1   ">
@@ -141,7 +143,7 @@ const NewsFeed = ({ article }: ArtcleProps) => {
           onError={(e)=> {const img = e.target as HTMLImageElement; img.src=paper} }
           />
         </div>
-        <h1 className="text-black font-semibold">{article.description}</h1>
+        <h1 className="text-black font-serif">{article.description}</h1>
         {/* </div> */}
         <div className="flex justify-between p-2 items-center">
           <a href={article.url} className="underline hover:text-blue-400">

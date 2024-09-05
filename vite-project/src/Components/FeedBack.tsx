@@ -16,7 +16,7 @@ const FeedBack = () => {
     input2: "",
     input3: "",
     input4: "",
-    rating: 0,
+    rating: 1,
   });
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -42,6 +42,11 @@ const FeedBack = () => {
         setIsmodalopen(true)
       return;
     }
+    if (formData.rating > 5) {
+        setMessage("Rating must be 5 or less");
+        setIsmodalopen(true);
+        return;
+      }
     dispatch(addFeedBack(FeedBackItem));
     setMessage('Submitted Successfully')
    

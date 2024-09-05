@@ -38,8 +38,8 @@ const DropDown = () => {
     };
   }, []);
   return (
-    <div>
-      <div className="mb-4">
+    <div ref={menuRef}>
+      <div className="mb-4" >
         <SlidersHorizontal
           onClick={toggleDropdown}
           className="cursor-pointer text-gray-600 hover:text-gray-800"
@@ -48,7 +48,7 @@ const DropDown = () => {
       {dropdownOpen && (
         <div
           className="bg-white shadow-lg rounded-lg p-4 absolute mt-2 w-40 top-6 left-2"
-          ref={menuRef}
+          
         >
           <button
             onClick={toggleLanguageDropdown}
@@ -87,12 +87,12 @@ const DropDown = () => {
               >
                 Spanish
               </button>
-              <button
+              {/* <button
                 onClick={() => handleLanguage("zh", "Chineese")}
                 className="w-full text-left px-4 py-2 text-gray-700 hover:bg-gray-100 hover:text-gray-900 rounded"
               >
                 Chineese
-              </button>
+              </button> */}
             </div>
           )}
 
