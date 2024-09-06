@@ -37,13 +37,13 @@ const ProfileDropdown = () => {
             <Dropdown.Item>
               <div className="flex flex-row py-2">
                 <div className=" flex ">
-                  <LogOut onClick={() => logout} />
+                  <LogOut onClick={()=>logout} />
                   <Logout />
                   {/* <Button value="Logout" onClick={logout} cl=""/> */}
                 </div>
               </div>
             </Dropdown.Item>
-            {user?.email === "amanyujith4444@gmail.com" && (
+            {user?.email === "amanyujithraj@gmail.com" && (
               <DropdownItem className="text-black font-bold ">
                 <Button
                   value="Portal"

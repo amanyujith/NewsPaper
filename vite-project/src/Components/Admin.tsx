@@ -84,8 +84,8 @@ const Admin = () => {
         >
           <div>
             <Button
-              value="BACK"
-              onClick={() => (window.location.href = "/user")}
+              value="Home"
+              onClick={() => (window.location.href = "/")}
               cl="bg-gray-700 text-white hover:bg-gray-600 ml-3"
             />
           </div>

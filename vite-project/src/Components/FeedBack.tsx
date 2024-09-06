@@ -5,12 +5,16 @@ import { MessageCircle } from "lucide-react";
 import { addFeedBack } from "../store/feedbackSlice";
 import Form from "./Form";
 import Modal from "./Modal";
+import { SquareCheckBig } from 'lucide-react';
+import { CircleX } from 'lucide-react';
+
 const FeedBack = () => {
   const { user } = useAuth0();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [message ,setMessage] = useState('');
-  const [isModalOpen , setIsmodalopen] = useState(false)
+  const [isModalOpen , setIsmodalopen] = useState(false);
+  const [Icon, setIcon] = useState(<SquareCheckBig />);
   const [formData, setFormData] = useState({
     input1: "",
     input2: "",
@@ -24,6 +28,7 @@ const FeedBack = () => {
       ...formData,
       [name]: name === "rating" ? parseInt(value) : value,
     });
+    
   };
 
   const handleSave = () => {
@@ -40,17 +45,26 @@ const FeedBack = () => {
     ) {
         setMessage('Fill All The Fields')
         setIsmodalopen(true)
+        setIcon(<CircleX color="red"/>);
       return;
     }
     if (formData.rating > 5) {
         setMessage("Rating must be 5 or less");
         setIsmodalopen(true);
+        setIcon(<CircleX color="red"/>);
         return;
       }
     dispatch(addFeedBack(FeedBackItem));
     setMessage('Submitted Successfully')
-   
+    setIcon(<SquareCheckBig color="green"/>)
     setOpen(false);
+    setFormData({
+      input1: "",
+      input2: "",
+      input3: "",
+      input4: "",
+      rating: 1,
+    });
     setIsmodalopen(true)
   };
   useEffect(()=>{
@@ -61,6 +75,16 @@ const FeedBack = () => {
         return()=> clearTimeout(timer)
     }
   })
+  const handleClose = ()=>{
+    setOpen(false)
+    setFormData({
+      input1: "",
+      input2: "",
+      input3: "",
+      input4: "",
+      rating: 1,
+    });
+  }
   return (
     <div className="">
       <MessageCircle
@@ -71,12 +95,12 @@ const FeedBack = () => {
         <Form
           onChange={handleChange}
           onSubmit={handleSave}
-          onClose={() => setOpen(false)}
+          onClose={ handleClose}
           formData={formData}
         />
       )}
       <Modal
-      isOpen={isModalOpen} message={message} 
+      isOpen={isModalOpen} message={message} Icon={Icon}
       />
     </div>
   );

@@ -140,6 +140,7 @@ const User = () => {
       dispatch(disLikeArticle({ user: user?.email, article: article }));
     }
   };
+
   useEffect(() => {
     if (view === "saved") {
       SetTitle("Saved");
@@ -264,11 +265,6 @@ const User = () => {
                   <div className="flex">
                     <div className="flex justify-end">
                       {view === "saved" ? (
-                        // <Button
-                        //   value="Remove"
-                        //   onClick={() => handleRemove(article.url)}
-                        //   cl="hover:bg-gray-100 flex"
-                        // />
                         <Button
                           value={<FaBookmark />}
                           onClick={() => handleRemove(article.url)}
@@ -282,10 +278,6 @@ const User = () => {
                             isSaved ? "text-gray-800" : "text-gray-400 "
                           }  w-fit text-2xl`}
                         />
-                        // <Button
-                        //   value={isSaved ? "SAVED" : "SAVE"}
-                        //   onClick={() => handleSave(article)}
-                        // />
                       )}
                       <div className="flex justify-end max-w-[50%] ">
                         <Button
@@ -304,22 +296,6 @@ const User = () => {
                         />
                       </div>
                     </div>
-                    {/* <button
-                      onClick={() => handleLikeClick(article)}
-                      className={`text-2xl ${
-                        isLiked ? "text-blue-500" : "text-gray-400"
-                      }`}
-                    >
-                      <FaThumbsUp />
-                    </button> 
-                     <button
-                      onClick={() => handleDislikeClick(article)}
-                      className={`text-2xl ${
-                        isDisliked ? "text-red-500" : "text-gray-400"
-                      }`}
-                    >
-                      <FaThumbsDown />
-                    </button> */}
                   </div>
                 </div>
               </div>

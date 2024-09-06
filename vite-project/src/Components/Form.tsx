@@ -42,6 +42,11 @@ const Form = ({ onChange, onClose, onSubmit, formData }: FormProps) => {
             value={formData.input1}
             name="input1"
             onChange={onChange}
+            onKeyDown={(e) => {
+              if (/\d/.test(e.key)) {
+                e.preventDefault(); // Prevent number key input
+              }
+            }}
             className="border border-gray-300 rounded-lg p-2 w-full mb-4"
           />
           <label htmlFor="">

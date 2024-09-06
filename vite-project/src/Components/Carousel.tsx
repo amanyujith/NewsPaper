@@ -43,7 +43,8 @@ const Carousel = () => {
       
         // setArticles(response.data.articles);
         const articles = response.data.articles.slice(1);
-        dispatch(CarouselArticle(articles));
+        const FilteredArticles  = articles.slice(1);
+        dispatch(CarouselArticle(FilteredArticles));
         // console.log(response, "rrrr");
       } catch (err) {
         console.log("Something wnet wrong", err);
@@ -64,7 +65,7 @@ const Carousel = () => {
                 {articles &&
                   articles.map((article, index) => (
                     <div
-                      className="embla__slide  rounded-lg  max-h-72"
+                      className="embla__slide  rounded-lg  max-h-72 border-b-2 "
                       key={index}
                     >
                       <div className="">
@@ -82,7 +83,7 @@ const Carousel = () => {
                         className="hover:underline hover:text-neutral-700"
                       >
                         {" "}
-                        <h1 className="px-4 font-serif pt-2 border-b-2 rounded-lg ">{article.title}</h1>
+                        <h1 className="px-4 font-serif pt-2  ">{article.title}</h1>
                       </a>
                     </div>
                   ))}
@@ -105,7 +106,7 @@ const Carousel = () => {
       </div>
       <div className="ml-2 justify-between  h-32 rounded-lg mr-2  p-2 flex flex-col ">
        <EmblaCarousel/>
-        <div className="flex justify-end gap-3 border-b-2 rounded-lg">
+        <div className="flex justify-end gap-3 border-b-2 rounded-lg mt-5">
           <h1 className="mb-2 mt-1">Provide Us A Feedback </h1>
           <div className="mt-1 mr-1">
           <FeedBack />
