@@ -18,11 +18,11 @@ import { Ellipsis } from "lucide-react";
 const TopArticles = () => {
   const dispatch = useDispatch();
   const articles = useSelector((state: RootState) => state.topArticles.article);
-  const language = useSelector((state: RootState) => state.api.language);
+  // const language = useSelector((state: RootState) => state.api.language);
   // const [articles,setArticles] = useState([])
   useEffect(() => {
     console.log("s1");
-    const apiKey = "46b9fd0e42f145a991f66b0d67257abf";
+    // const apiKey = "46b9fd0e42f145a991f66b0d67257abf";
     const Articles = async () => {
       console.log("s2");
 

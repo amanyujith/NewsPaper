@@ -170,7 +170,7 @@ const User = () => {
           className="sm:hidden w-full flex justify-end mr-10"
           onClick={() => setIsOpen(!isOPen)}
         >
-          <MenuIcon />
+          <MenuIcon className="cursor-pointer" />
         </div>
         <div
           className={`sm:flex  justify-between items-center w-full flex-wrap ${
@@ -236,7 +236,7 @@ const User = () => {
                 className="max-w-full bg-white shadow-lg rounded-lg overflow-hidden my-4 mx-4 p-6"
                 key={article.url}
               >
-                <div className="sm:flex ">
+                <div className="sm:flex">
                   <img
                     src={article.urlToImage || paper}
                     alt="News"
